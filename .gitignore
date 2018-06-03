@@ -8,7 +8,11 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-./src/conf/
+./src/conf/*.yaml
+./src/conf/*.yml
+src/conf/app_tmp.yaml
+src/conf/config.yaml
+src/conf/config.yml
 build/
 develop-eggs/
 dist/
