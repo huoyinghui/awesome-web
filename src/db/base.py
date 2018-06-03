@@ -7,7 +7,7 @@ sys.path.insert(0, root_path)
 
 # 项目路径直接导入appConf
 from conf import appConf
-
+from utils import logger_db, encrypted
 
 from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.ext.declarative import declarative_base
@@ -26,14 +26,18 @@ async def create_pool(loop, **kwargs):
     )
 
 # from .actor import Actor
-print(appConf.db.pg.url)
+logger_db.debug(appConf.db.pg.url)
 engine = create_engine(appConf.db.pg.url, pool_size=20, max_overflow=0, echo=True)
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
+def encryted_salt(text):
+    return encrypted(appConf.web.salt, text)
+
+
 def main():
-    print(Base)
+    logger_db.info(Base)
 
 if __name__ == '__main__':
     main()
