@@ -7,8 +7,14 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+*_log.txt
+./src/*/*_log.txt
 .Python
-./src/conf/
+./src/conf/*.yaml
+./src/conf/*.yml
+src/conf/app_tmp.yaml
+src/conf/config.yaml
+src/conf/config.yml
 build/
 develop-eggs/
 dist/
