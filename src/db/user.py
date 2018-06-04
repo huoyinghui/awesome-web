@@ -1,5 +1,6 @@
 import hashlib
 from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy.orm import relationship
 from datetime import date, datetime
 from base import Base, encryted_salt
 
@@ -14,18 +15,22 @@ class User(Base):
     admin = Column(Boolean)
     image = Column(String)
     created_at = Column(Date)
+    # addresses = relationship("Address")
+    blogs = relationship("Blog")
+    comments = relationship("Comment")
+
 
     def __repr__(self):
         return "<User(id='{}', name='{}', email='{}', password={}, admin={}, image={}, create_at={})>".format(
             self.id, self.name, self.email, self.password, self.admin, self.image, self.created_at)
-
-    def __init__(self, name, email, password, admin=True, image=''):
-        self.name = name
-        self.email = email
-        self.password = encryted_salt(password)
-        self.admin = admin
-        self.image = image
-        self.created_at = datetime.now()
+    #
+    # def __init__(self, name, email, password, admin=True, image=''):
+    #     self.name = name
+    #     self.email = email
+    #     self.password = encryted_salt(password)
+    #     self.admin = admin
+    #     self.image = image
+    #     self.created_at = datetime.now()
 
 
 if __name__ == '__main__':

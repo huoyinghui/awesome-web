@@ -1,19 +1,14 @@
 # 1 - imports
-from datetime import date
-
-from actor import Actor
 from base import Session, engine, Base
-from contact_details import ContactDetails
-from movie import Movie
-from stuntman import Stuntman
 from user import User
+from blog import Blog
 
 
 # 2 - generate database schema
 Base.metadata.create_all(engine)
 
 # 2.1 create user
-user_1 = User('hyh', 'hyhlinux@163.com', 'test', admin=True, image='http://...')
+# user_list = [User(fake.name(), fake.email(), fake.word()) for i in range(10)]
 
 # # 4 - create movies
 # bourne_identity = Movie("The Bourne Identity", date(2002, 10, 11))
@@ -48,7 +43,23 @@ if __name__ == '__main__':
     # 3 - create a new session
     session = Session()
     # 9 - persists data
-    session.add(user_1)
+    # session.add_all(user_list)
+    # for row in session.query(User, User.name).all():
+    #     print(row.User.id, row.User.email, row.User.password, row.User.created_at)
+
+    # for row in session.query(User).filter(User.name == 'hyh').order_by(User.id):
+    user_list = []
+    for row in session.query(User).filter(User.name != 'hyh').order_by(User.id):
+        print(row.blog)
+        user_list.append(row)
+
+    user_cnt = session.query(User).filter(User.name != 'hyh').order_by(User.id).count()
+    print(user_cnt)
+
+    blog = Blog()
+    for row in session.query(Blog).order_by(Blog.id):
+        print(row)
+
     # session.add(bourne_identity)
     # session.add(furious_7)
     # session.add(pain_and_gain)
