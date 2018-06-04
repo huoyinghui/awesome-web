@@ -44,11 +44,27 @@ class DbConfig(yaml.YAMLObject):
         return "%s(pg=%s)" % (self.__class__.__name__, self.pg)
 
 
+class WebConfig(yaml.YAMLObject):
+    yaml_tag = u'!WebConfig'
+
+    def __init__(self, salt):
+        self.salt = salt
+
+    def __repr__(self):
+        return "%s(pg=%s)" % (self.__class__.__name__, self.pg)
+
+
 class AppConfig(yaml.YAMLObject):
     yaml_tag = u'!AppConfig'
 
-    def __init__(self, dbname, user, password, host, port='5432', pool_size=4, echo=True):
+    def __init__(self, dbname, user, password, host,
+                 port='5432',
+                 pool_size=4,
+                 echo=True,
+                 salt='test',
+                 ):
         self.db = DbConfig(dbname, user, password, host, port=port, pool_size=pool_size, echo=echo)
+        self.web = WebConfig(salt=salt)
 
     def __repr__(self):
         return "%s(db=%s)" % (self.__class__.__name__, str(self.db))
